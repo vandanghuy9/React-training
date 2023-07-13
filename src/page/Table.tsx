@@ -8,23 +8,28 @@ const Table: React.FC = () => {
     setPeopleList(people);
   }, []);
   return (
-    <div className="mx-auto px-10">
-      <div className="flew flex-row w-[80%]">
-        <table>
+    <div className="mx-auto">
+      <div className="flew flex-row">
+        <div className="mx-auto">
+          <form>
+            <label></label>
+          </form>
+        </div>
+        <table className="w-[100%]">
           <thead>
             <tr>
-              <td>STT</td>
-              <td>MSSV</td>
-              <td>Ho ten</td>
-              <td>Ngay sinh</td>
-              <td>Email</td>
-              <td></td>
+              <td className="px-3">STT</td>
+              <td className="px-3">MSSV</td>
+              <td className="px-3">Ho ten</td>
+              <td className="px-3">Ngay sinh</td>
+              <td className="px-3">Email</td>
+              <td className="px-3"></td>
             </tr>
           </thead>
           <tbody>
             {peopleList.map((item, index) => (
               <tr key={index}>
-                <td>{index}</td>
+                <td className="px-3">{index}</td>
                 <td>{item.mssv}</td>
                 <td>{item.name}</td>
                 <td>{item.dob}</td>
