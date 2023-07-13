@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import people from "../data/data";
 import { Person } from "../data/data";
-
+// import "../index.css";
 const Table: React.FC = () => {
   const [peopleList, setPeopleList] = useState<Array<Person>>([]);
   useEffect(() => {
