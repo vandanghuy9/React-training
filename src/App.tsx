@@ -1,4 +1,4 @@
-import Table from "./page/Table";
+import Setup from "./page/Map";
 
 function App() {
   return (
@@ -6,7 +6,7 @@ function App() {
       <div className="bg-white mx-auto">
         <h1 className="text-center py-[30px]">Vite + React</h1>
         <div>
-          <Table></Table>
+          <Setup></Setup>
         </div>
       </div>
     </div>

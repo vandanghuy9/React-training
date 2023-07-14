@@ -80,3 +80,21 @@ button:focus-visible {
 td{
   padding: 20px;
 }
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+.mario{
+  background-image: url('/mario.png');
+  background-size: 50px 55px;
+  background-repeat: no-repeat;
+  /* background-color: brown; */
+}
+.diamond {
+  background-image: url('/diamond.png');
+  background-size: 50px 55px;
+  background-repeat: no-repeat;
+  /* background-color: brown; */
+}
