@@ -1,12 +1,31 @@
-import Setup from "./page/Map";
-
+import Map from "./page/Map";
+import Table from "./page/Table";
+import { Routes, Route, Link } from "react-router-dom";
 function App() {
   return (
     <div className="bg-blue-200 px-10 h-[100vh] pt-[50px]">
       <div className="bg-white mx-auto">
         <h1 className="text-center py-[30px]">Vite + React</h1>
+
+        <nav className="px-1 w-[100px]">
+          <ul className="flex flex-row w-5">
+            <span>
+              <li>
+                <Link to={"/"}>Table</Link>
+              </li>
+            </span>
+            <span>
+              <li>
+                <Link to={"/map"}>Map</Link>
+              </li>
+            </span>
+          </ul>
+        </nav>
         <div>
-          <Setup></Setup>
+          <Routes>
+            <Route path="/" element={<Table />} />
+            <Route path="/map" element={<Map />} />
+          </Routes>
         </div>
       </div>
     </div>
