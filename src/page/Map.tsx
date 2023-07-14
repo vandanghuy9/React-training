@@ -1,18 +1,19 @@
 import { number, Row } from "../data/data";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 var row = 7;
 var col = 5;
 const Map: React.FC = () => {
   const [map, setMap] = useState<Row[]>(number);
-  const [query, setQuery] = useState<string>("");
-  const [count, setCount] = useState<number>(0);
+  const [input, setInput] = useState<string>("");
+  const [query, setQuery] = useState<string[]>([]);
+  const countRef = useRef(0);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
+    setInput(e.target.value);
   };
   const handleMap = (q: string) => {
     switch (q) {
       case "UP": {
-        if (row >= 0 && map[row - 1][col] !== 1) {
+        if (row > 0 && map[row - 1][col] !== 1) {
           map[row - 1][col] = 2;
           map[row][col] = 0;
           row -= 1;
@@ -21,7 +22,7 @@ const Map: React.FC = () => {
         break;
       }
       case "DOWN": {
-        if (row <= 7 && map[row + 1][col] !== 1) {
+        if (row < 7 && map[row + 1][col] !== 1) {
           map[row + 1][col] = 2;
           map[row][col] = 0;
           row += 1;
@@ -30,7 +31,7 @@ const Map: React.FC = () => {
         break;
       }
       case "LEFT": {
-        if (col >= 0 && map[row][col - 1] !== 1) {
+        if (col > 0 && map[row][col - 1] !== 1) {
           map[row][col - 1] = 2;
           map[row][col] = 0;
           col -= 1;
@@ -39,7 +40,7 @@ const Map: React.FC = () => {
         break;
       }
       default: {
-        if (col <= 7 && map[row][col + 1] !== 1) {
+        if (col < 5 && map[row][col + 1] !== 1) {
           map[row][col + 1] = 2;
           map[row][col] = 0;
           col += 1;
@@ -50,11 +51,26 @@ const Map: React.FC = () => {
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const words = query.toUpperCase().split(" ");
-    const seperatedQuery = words.filter((item) => item !== "MOVE");
-
-    setQuery("");
+    const words = input.toUpperCase().split(" ");
+    const seperatedinput = words.filter((item) => item !== "MOVE");
+    console.log(seperatedinput);
+    setInput("");
+    setQuery(seperatedinput);
+    handleMap(seperatedinput[countRef.current]);
+    countRef.current += 1;
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (countRef.current < query.length) {
+        handleMap(query[countRef.current]);
+        countRef.current += 1;
+        console.log(countRef.current);
+      } else {
+        countRef.current = 0;
+      }
+    }, 2000);
+  }, [map]);
   return (
     <div className="flex flex-row">
       <div className="flex flex-col border-solid border-black px-10 py-10">
@@ -84,10 +100,10 @@ const Map: React.FC = () => {
       <div className="flex flex-col">
         <form onSubmit={handleSubmit}>
           <input
-            id="query"
-            name="query"
-            value={query}
-            placeholder="Enter query"
+            id="input"
+            name="input"
+            value={input}
+            placeholder="Enter input"
             onChange={handleChange}
             className="mx-10 my-10 h-[50px] "
             style={{
