@@ -8,17 +8,13 @@ function App() {
         <h1 className="text-center py-[30px]">Vite + React</h1>
 
         <nav className="px-1 w-[100px]">
-          <ul className="flex flex-row w-5">
-            <span>
-              <li>
-                <Link to={"/"}>Table</Link>
-              </li>
-            </span>
-            <span>
-              <li>
-                <Link to={"/map"}>Map</Link>
-              </li>
-            </span>
+          <ul className="flex flex-row w-[100px]">
+            <li className="px-[10px]">
+              <Link to={"/"}>Table</Link>
+            </li>
+            <li className="px-[10px]">
+              <Link to={"/map"}>Map</Link>
+            </li>
           </ul>
         </nav>
         <div>
