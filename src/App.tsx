@@ -9,10 +9,10 @@ function App() {
 
         <nav className="px-1 w-[100px]">
           <ul className="flex flex-row w-[100px]">
-            <li className="px-[10px]">
+            <li className="px-[10px] hover:bg-blue-100">
               <Link to={"/"}>Table</Link>
             </li>
-            <li className="px-[10px]">
+            <li className="px-[10px] hover:bg-blue-100">
               <Link to={"/map"}>Map</Link>
             </li>
           </ul>
