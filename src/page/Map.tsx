@@ -53,7 +53,7 @@ const Map: React.FC = () => {
     e.preventDefault();
     const words = input.toUpperCase().split(" ");
     const seperatedinput = words.filter((item) => item !== "MOVE");
-    console.log(seperatedinput);
+    // console.log(seperatedinput);
     setInput("");
     setQuery(seperatedinput);
     handleMap(seperatedinput[countRef.current]);
@@ -61,15 +61,18 @@ const Map: React.FC = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (countRef.current < query.length) {
         handleMap(query[countRef.current]);
         countRef.current += 1;
-        console.log(countRef.current);
+        // console.log(countRef.current);
       } else {
         countRef.current = 0;
       }
-    }, 2000);
+    }, 1100);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [map]);
   return (
     <div className="flex flex-row">
