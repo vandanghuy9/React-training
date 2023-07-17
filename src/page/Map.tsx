@@ -39,13 +39,17 @@ const Map: React.FC = () => {
         }
         break;
       }
-      default: {
+      case "RIGHT": {
         if (col < 5 && map[row][col + 1] !== 1) {
           map[row][col + 1] = 2;
           map[row][col] = 0;
           col += 1;
           setMap([...map]);
         }
+        break;
+      }
+      default: {
+        break;
       }
     }
   };
