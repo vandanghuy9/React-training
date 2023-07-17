@@ -53,7 +53,6 @@ const Map: React.FC = () => {
     e.preventDefault();
     const words = input.toUpperCase().split(" ");
     const seperatedinput = words.filter((item) => item !== "MOVE");
-    // console.log(seperatedinput);
     setInput("");
     setQuery(seperatedinput);
     handleMap(seperatedinput[countRef.current]);
@@ -65,7 +64,6 @@ const Map: React.FC = () => {
       if (countRef.current < query.length) {
         handleMap(query[countRef.current]);
         countRef.current += 1;
-        // console.log(countRef.current);
       } else {
         countRef.current = 0;
       }
@@ -113,7 +111,10 @@ const Map: React.FC = () => {
               border: "1px solid black",
             }}
           ></input>
-          <button type="submit" className="bg-blue-300 border-solid px-3 py-3">
+          <button
+            type="submit"
+            className="bg-blue-300 border-solid px-3 py-3 hover:bg-blue-500"
+          >
             Run
           </button>
         </form>
