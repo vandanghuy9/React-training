@@ -1,3 +1,4 @@
+import Grid from "./page/Grid";
 import Map from "./page/Map";
 import Table from "./page/Table";
 import { Routes, Route, Link } from "react-router-dom";
@@ -15,12 +16,16 @@ function App() {
             <li className="px-[10px] hover:bg-blue-100">
               <Link to={"/map"}>Map</Link>
             </li>
+            <li className="px-[10px] hover:bg-blue-100">
+              <Link to={"/grid"}>Grid</Link>
+            </li>
           </ul>
         </nav>
         <div>
           <Routes>
             <Route path="/" element={<Table />} />
             <Route path="/map" element={<Map />} />
+            <Route path="/grid" element={<Grid />} />
           </Routes>
         </div>
       </div>

@@ -5,6 +5,10 @@ export interface Person {
   dob: string;
   email: string;
 }
+export type ImageRowProps = {
+  col: number;
+  img: any;
+};
 const people: Array<Person> = [
   {
     id: 1,
