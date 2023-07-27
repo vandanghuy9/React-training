@@ -1,18 +1,22 @@
+// import Modal from "../components/Modal";
 import { number, Row } from "../data/data";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 var row = 7;
 var col = 5;
+const Modal = React.lazy(() => import("../components/Modal"));
 const Map: React.FC = () => {
   const [map, setMap] = useState<Row[]>(number);
   const [input, setInput] = useState<string>("");
   const [query, setQuery] = useState<string[]>([]);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  // const [modal, setModal] = useState<any>();
   const countRef = useRef(0);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
   };
   const handleMap = (q: string) => {
     switch (q) {
-      case "UP": {
+      case "MOVE UP": {
         if (row > 0 && map[row - 1][col] !== 1) {
           map[row - 1][col] = 2;
           map[row][col] = 0;
@@ -21,7 +25,7 @@ const Map: React.FC = () => {
         }
         break;
       }
-      case "DOWN": {
+      case "MOVE DOWN": {
         if (row < 7 && map[row + 1][col] !== 1) {
           map[row + 1][col] = 2;
           map[row][col] = 0;
@@ -30,7 +34,7 @@ const Map: React.FC = () => {
         }
         break;
       }
-      case "LEFT": {
+      case "MOVE LEFT": {
         if (col > 0 && map[row][col - 1] !== 1) {
           map[row][col - 1] = 2;
           map[row][col] = 0;
@@ -39,7 +43,7 @@ const Map: React.FC = () => {
         }
         break;
       }
-      case "RIGHT": {
+      case "MOVE RIGHT": {
         if (col < 5 && map[row][col + 1] !== 1) {
           map[row][col + 1] = 2;
           map[row][col] = 0;
@@ -53,14 +57,17 @@ const Map: React.FC = () => {
       }
     }
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const words = input.toUpperCase().split(" ");
-    const seperatedinput = words.filter((item) => item !== "MOVE");
+    const words = input.trim().toUpperCase().split("\n");
+    console.log(words);
     setInput("");
-    setQuery(seperatedinput);
-    handleMap(seperatedinput[countRef.current]);
+    setQuery(words);
+    handleMap(words[countRef.current]);
     countRef.current += 1;
+  };
+  const closeModal = () => {
+    setIsSuccess(false);
   };
 
   useEffect(() => {
@@ -76,6 +83,14 @@ const Map: React.FC = () => {
       clearTimeout(timer);
     };
   }, [map]);
+  useEffect(() => {
+    if (row === 0 && col === 4) {
+      // import("../components/Modal").then((component) => {
+      //   setModal(component.default);
+      // });
+      setIsSuccess(true);
+    }
+  }, [row, col]);
   return (
     <div className="flex flex-row">
       <div className="flex flex-col border-solid border-black px-10 py-10">
@@ -103,25 +118,29 @@ const Map: React.FC = () => {
         </table>
       </div>
       <div className="flex flex-col">
-        <form onSubmit={handleSubmit}>
-          <input
-            id="input"
-            name="input"
-            value={input}
-            placeholder="Enter input"
-            onChange={handleChange}
-            className="mx-10 my-10 h-[50px] "
-            style={{
-              border: "1px solid black",
-            }}
-          ></input>
-          <button
-            type="submit"
-            className="bg-blue-300 border-solid px-3 py-3 hover:bg-blue-500"
-          >
-            Run
-          </button>
-        </form>
+        <label htmlFor="input">Enter query:</label>
+        <textarea
+          id="input"
+          name="input"
+          value={input}
+          placeholder="Enter input"
+          onChange={handleChange}
+          className="mx-10 my-10 h-[50px] border-[1px] border-solid border-black px-3 py-3"
+          rows={5}
+          cols={30}
+        />
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="bg-blue-300 border-solid px-3 py-3 hover:bg-blue-500"
+        >
+          Run
+        </button>
+        {isSuccess && (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <Modal message="Success hoohoo" closeModal={closeModal} />
+          </React.Suspense>
+        )}
       </div>
     </div>
   );
