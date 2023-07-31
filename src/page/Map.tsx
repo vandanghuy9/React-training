@@ -72,6 +72,9 @@ const Map: React.FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      if (row === 0 && col === 4) {
+        setIsSuccess(true);
+      }
       if (countRef.current < query.length) {
         handleMap(query[countRef.current]);
         countRef.current += 1;
@@ -83,14 +86,6 @@ const Map: React.FC = () => {
       clearTimeout(timer);
     };
   }, [map]);
-  useEffect(() => {
-    if (row === 0 && col === 4) {
-      // import("../components/Modal").then((component) => {
-      //   setModal(component.default);
-      // });
-      setIsSuccess(true);
-    }
-  }, [row, col]);
   return (
     <div className="flex flex-row">
       <div className="flex flex-col border-solid border-black px-10 py-10">
