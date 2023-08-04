@@ -76,6 +76,9 @@ button:focus-visible {
   padding: 2em;
 } */
 
+body{
+  background-color: rgb(191 219 254 / 1);
+}
 
 td{
   padding: 20px;

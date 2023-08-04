@@ -1,32 +1,19 @@
-type Props = {
-  data: {
-    type: string;
-    id: string;
-    value: string;
-    name: string;
-    placeHolder: string;
-    label: string;
-  };
-};
-const InputField = ({ data }: Props) => {
-  const { type, id, value, name, placeHolder, label } = data;
+import { Props } from "../data/data";
+const InputField = (props: Props) => {
+  const { type, id, value, name, placeHolder, label, handleChange } = props;
   return (
-    <div>
-      <label
-        htmlFor={id}
-        className="block text-gray-700 text-sm font-bold mb-2"
-      >
+    <div className="flex flex-row ">
+      <label htmlFor={name} className="w-40 pl-5">
         {label}
       </label>
       <input
+        className="px-2 border-solid border-black-100 border-[1px] rounded-md bg-gray-300"
+        name={name}
         type={type}
         id={id}
-        value={value}
-        name={name}
         placeholder={placeHolder}
-        onChange={() => {}}
-        className=" block border border-grey-light w-full p-3 rounded mb-4"
-        style={{ overflow: "visible" }}
+        value={value}
+        onChange={handleChange}
       ></input>
     </div>
   );

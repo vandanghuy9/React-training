@@ -5,6 +5,21 @@ var row = 7;
 var col = 5;
 const Modal = React.lazy(() => import("../components/Modal"));
 const Map: React.FC = () => {
+  const isValidQuery = (query: string) => {
+    if (query === "MOVE UP") {
+      return row > 0 && map[row - 1][col] !== 1;
+    }
+    if (query === "MOVE DOWN") {
+      return row < 7 && map[row + 1][col] !== 1;
+    }
+    if (query === "MOVE LEFT") {
+      return col > 0 && map[row][col - 1] !== 1;
+    }
+    if (query === "MOVE RIGHT") {
+      return col < 5 && map[row][col + 1] !== 1;
+    }
+    return 0;
+  };
   const [map, setMap] = useState<Row[]>(number);
   const [input, setInput] = useState<string>("");
   const [query, setQuery] = useState<string[]>([]);
@@ -17,39 +32,35 @@ const Map: React.FC = () => {
   const handleMap = (q: string) => {
     switch (q) {
       case "MOVE UP": {
-        if (row > 0 && map[row - 1][col] !== 1) {
-          map[row - 1][col] = 2;
-          map[row][col] = 0;
-          row -= 1;
-          setMap([...map]);
-        }
+        map[row - 1][col] = 2;
+        map[row][col] = 0;
+        row -= 1;
+        setMap([...map]);
+
         break;
       }
       case "MOVE DOWN": {
-        if (row < 7 && map[row + 1][col] !== 1) {
-          map[row + 1][col] = 2;
-          map[row][col] = 0;
-          row += 1;
-          setMap([...map]);
-        }
+        map[row + 1][col] = 2;
+        map[row][col] = 0;
+        row += 1;
+        setMap([...map]);
+
         break;
       }
       case "MOVE LEFT": {
-        if (col > 0 && map[row][col - 1] !== 1) {
-          map[row][col - 1] = 2;
-          map[row][col] = 0;
-          col -= 1;
-          setMap([...map]);
-        }
+        map[row][col - 1] = 2;
+        map[row][col] = 0;
+        col -= 1;
+        setMap([...map]);
+
         break;
       }
       case "MOVE RIGHT": {
-        if (col < 5 && map[row][col + 1] !== 1) {
-          map[row][col + 1] = 2;
-          map[row][col] = 0;
-          col += 1;
-          setMap([...map]);
-        }
+        map[row][col + 1] = 2;
+        map[row][col] = 0;
+        col += 1;
+        setMap([...map]);
+
         break;
       }
       default: {
@@ -63,8 +74,10 @@ const Map: React.FC = () => {
     console.log(words);
     setInput("");
     setQuery(words);
-    handleMap(words[countRef.current]);
-    countRef.current += 1;
+    if (isValidQuery(words[countRef.current])) {
+      handleMap(words[countRef.current]);
+      countRef.current += 1;
+    }
   };
   const closeModal = () => {
     setIsSuccess(false);
@@ -76,8 +89,10 @@ const Map: React.FC = () => {
         setIsSuccess(true);
       }
       if (countRef.current < query.length) {
-        handleMap(query[countRef.current]);
-        countRef.current += 1;
+        if (isValidQuery(query[countRef.current])) {
+          handleMap(query[countRef.current]);
+          countRef.current += 1;
+        }
       } else {
         countRef.current = 0;
       }
@@ -121,7 +136,7 @@ const Map: React.FC = () => {
           placeholder="Enter input"
           onChange={handleChange}
           className="mx-10 my-10 h-[50px] border-[1px] border-solid border-black px-3 py-3"
-          rows={5}
+          rows={4}
           cols={30}
         />
         <button

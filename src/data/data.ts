@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from "react";
+
 export interface Person {
   id: number;
   mssv: string;
@@ -5,6 +7,16 @@ export interface Person {
   dob: string;
   email: string;
 }
+export type Props = {
+  type: string;
+  id: string;
+  value: string;
+  name: string;
+  placeHolder: string;
+  label: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
 export type ImageRowProps = {
   col: number;
   img: any;

@@ -4,21 +4,18 @@ import Table from "./page/Table";
 import { Routes, Route, Link } from "react-router-dom";
 function App() {
   return (
-    <div className="bg-blue-200 px-10 h-[100vh]  ">
+    <div className=" px-10 h-[100vh]  ">
       <div className="bg-white mx-auto">
-        <h1 className="text-center py-[30px]">Vite + React</h1>
-
-        <nav className="px-1 w-[100px]">
-          <ul className="flex flex-row w-[100px]">
-            <li className="px-[10px] hover:bg-blue-100">
-              <Link to={"/"}>Table</Link>
-            </li>
-            <li className="px-[10px] hover:bg-blue-100">
-              <Link to={"/map"}>Map</Link>
-            </li>
-            <li className="px-[10px] hover:bg-blue-100">
-              <Link to={"/grid"}>Grid</Link>
-            </li>
+        <nav className="px-1 py-1 border-black-100 border-solid border-[1px]">
+          <ul className="flex flex-row ">
+            {["table", "map", "grid"].map((item, index) => {
+              let link = item === "table" ? "/" : item;
+              return (
+                <li className="px-6 py-3 hover:bg-blue-100 " key={index}>
+                  <Link to={link}>{item[0].toUpperCase() + item.slice(1)}</Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
         <div>

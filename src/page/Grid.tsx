@@ -28,11 +28,8 @@ const Grid: React.FC = () => {
   return (
     <div>
       <div>
-        <form onSubmit={handleSubmit}>
-          <label
-            htmlFor="row"
-            className="px-3 border-solid border-black border-[1px]"
-          >
+        <form onSubmit={handleSubmit} className="mx-5 my-5">
+          <label htmlFor="row" className="px-3 mx-1">
             Chọn số hàng:
           </label>
           <input
@@ -43,11 +40,9 @@ const Grid: React.FC = () => {
             min={defaultTable.row}
             max="100"
             onChange={handleChange}
+            className="px-2 border-solid border-black-100 border-[1px] rounded-md"
           ></input>
-          <label
-            htmlFor="row"
-            className="px-3 border-solid border-black border-[1px]"
-          >
+          <label htmlFor="row" className="px-3 mx-1 ">
             Chọn số cột:
           </label>
           <input
@@ -58,10 +53,11 @@ const Grid: React.FC = () => {
             min={defaultTable.col}
             max="100"
             onChange={handleChange}
+            className="px-2 border-solid border-black-100 border-[1px] rounded-md"
           ></input>
           <button
             type="submit"
-            className="border-solid border-black border-[1px] px-5 bg-blue-200 hover:bg-blue-300"
+            className="border-solid border-black border-[1px] rounded-md mx-3 px-5 bg-blue-200 hover:bg-blue-300"
           >
             Render
           </button>
