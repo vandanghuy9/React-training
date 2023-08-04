@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import img from "/furniture.jpg";
 import ImageRow from "../components/ImageRow";
+import { ImageArr } from "../data/data";
 type Table = {
   row: number;
   col: number;
@@ -15,14 +16,27 @@ const Grid: React.FC = () => {
   const [imgGrid, setImgGrid] = useState<Array<any>>([]);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    for (let i = 0; i < table.row; i++) {
-      imgGrid.push(<ImageRow key={i} col={table.col} img={img} />);
+    let image = [...ImageArr];
+    if (image.length > table.col * table.row) {
+      const newLength = table.col * table.row;
+      image = image.slice(0, newLength);
     }
+    const LENGTH = image.length;
+    const getCol: number = table.col;
+    let start: number = 0,
+      end: number = start + getCol;
+    for (let i = 0; i < table.row - 1; i++) {
+      imgGrid.push(<ImageRow key={i} img={image.slice(start, end)} />);
+      start = end;
+      end += getCol;
+    }
+    imgGrid.push(<ImageRow key={"left"} img={image.slice(start, LENGTH)} />);
+
     setImgGrid([...imgGrid]);
     setIsShowTable(true);
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTable({ ...table, [e.target.name]: e.target.value });
+    setTable({ ...table, [e.target.name]: Number(e.target.value) });
   };
 
   return (
@@ -40,7 +54,7 @@ const Grid: React.FC = () => {
             min={defaultTable.row}
             max="100"
             onChange={handleChange}
-            className="px-2 border-solid border-black-100 border-[1px] rounded-md"
+            className="px-2 border-solid border-black-100 border-[1px] rounded-md bg-gray-100"
           ></input>
           <label htmlFor="row" className="px-3 mx-1 ">
             Chọn số cột:
@@ -53,7 +67,7 @@ const Grid: React.FC = () => {
             min={defaultTable.col}
             max="100"
             onChange={handleChange}
-            className="px-2 border-solid border-black-100 border-[1px] rounded-md"
+            className="px-2 border-solid border-black-100 border-[1px] rounded-md bg-gray-100"
           ></input>
           <button
             type="submit"

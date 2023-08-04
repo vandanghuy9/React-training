@@ -18,8 +18,8 @@ export type Props = {
 };
 
 export type ImageRowProps = {
-  col: number;
-  img: any;
+  // col: number;
+  img: Image[];
 };
 const people: Array<Person> = [
   {
@@ -63,4 +63,18 @@ export const number: Row[] = [
   [0, 0, 0, 0, 0, 2],
 ];
 
+export type Image = {
+  key: number;
+  img: string;
+};
+
+export const ImageArr: Image[] = [
+  { key: 1, img: "/furniture.jpg" },
+  { key: 2, img: "/furniture-2.jpg" },
+  { key: 3, img: "/furniture-3.jpg" },
+  { key: 4, img: "/furniture-4.jpg" },
+  { key: 5, img: "/furniture-5.jpg" },
+  { key: 6, img: "/furniture-6.jpg" },
+  { key: 7, img: "/furniture-7.jpg" },
+];
 export default people;
