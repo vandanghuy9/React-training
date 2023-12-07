@@ -78,3 +78,35 @@ export const ImageArr: Image[] = [
   { key: 7, img: "/furniture-7.jpg" },
 ];
 export default people;
+
+export const buildingTableHeader = [
+  "STT",
+  "Tòa nhà",
+  "Số tầng",
+  "Tổng số lớp học",
+  "Trạng thái hoạt động",
+  "Thao tác",
+];
+
+export type Building = {
+  id?: number | null;
+  name: string;
+  floorNum: number | string;
+  classNum: number | string;
+  onService?: boolean;
+  roomList?: Array<any> | null;
+  builtYear: number | string;
+};
+
+export type BuildingContextType = {
+  isLoading: boolean;
+  buildings: Building[];
+  newBuilding: Building;
+  handleChange: any;
+  handleDelete: any;
+  setIsLoading: any;
+  getData: any;
+  getBuildingRoom: any;
+  rows: any;
+  setRows: any;
+};

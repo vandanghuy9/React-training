@@ -1,33 +1,68 @@
-import Grid from "./page/Grid";
-import Map from "./page/Map";
-import Table from "./page/Table";
-import { Routes, Route, Link } from "react-router-dom";
-function App() {
+import React, { Suspense, lazy } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Layout } from "./layouts";
+import { StateContext } from "./context/StateContext";
+const HomePage = lazy(() => import("./page/HomePage"));
+const Map = lazy(() => import("./page/Map"));
+const Table = lazy(() => import("./page/Table"));
+const Building = lazy(() => import("./page/building/Building"));
+const CreateBuildingForm = lazy(
+  () => import("./page/building/CreateBuildingForm")
+);
+import { LinearProgress } from "@mui/material";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import UpdateBuildingForm from "./page/building/UpdateBuildingForm";
+import CreateRoomForm from "./page/room/CreateRoomForm";
+const App = () => {
   return (
-    <div className=" px-10 h-[100vh]  ">
-      <div className="bg-white mx-auto">
-        <nav className="px-1 py-1 border-black-100 border-solid border-[1px]">
-          <ul className="flex flex-row ">
-            {["table", "map", "grid"].map((item, index) => {
-              let link = item === "table" ? "/" : item;
-              return (
-                <li className="px-6 py-3 hover:bg-blue-100 " key={index}>
-                  <Link to={link}>{item[0].toUpperCase() + item.slice(1)}</Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-        <div>
-          <Routes>
-            <Route path="/" element={<Table />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/grid" element={<Grid />} />
-          </Routes>
-        </div>
-      </div>
+    <div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <StateContext>
+        <Layout>
+          <Suspense
+            fallback={
+              <LinearProgress
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: -250,
+                  width: "calc(100% + 300px)",
+                  zIndex: 1202,
+                }}
+              />
+            }
+          >
+            <Routes>
+              <Route path="/grid" element={<Table />} />
+              <Route path="/map" element={<Map />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/building">
+                <Route path=":id" element={<Building />}></Route>
+                <Route path="create" element={<CreateBuildingForm />}></Route>
+                <Route
+                  path="update/:buildingId"
+                  element={<UpdateBuildingForm />}
+                ></Route>
+                <Route path=":id/create" element={<CreateRoomForm />}></Route>
+              </Route>
+            </Routes>
+          </Suspense>
+        </Layout>
+      </StateContext>
     </div>
   );
-}
+};
 
 export default App;

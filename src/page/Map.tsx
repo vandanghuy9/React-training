@@ -96,7 +96,7 @@ const Map: React.FC = () => {
       } else {
         countRef.current = 0;
       }
-    }, 1100);
+    }, 800);
     return () => {
       clearTimeout(timer);
     };
