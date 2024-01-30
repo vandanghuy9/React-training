@@ -120,7 +120,7 @@ const CreateRoomForm = () => {
           progress: undefined,
           theme: "light",
         });
-        getBuildingRoom(parseInt(id));
+        getBuildingRoom(id);
       });
       navigate(`/building/${id}`);
     }
